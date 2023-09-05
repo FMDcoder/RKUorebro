@@ -1,29 +1,32 @@
 const fs = require("fs")
 const { TOKEN } = JSON.parse(fs.readFileSync("important.json"))
-const { Client, IntentsBitField: {Flags}} = require("discord.js")
+const { Client, IntentsBitField} = require("discord.js")
 
 const client = new Client({
     intents: [
-        Flags.Guilds,
-        Flags.GuildMembers,
-        Flags.GuildModeration,
-        Flags.GuildEmojisAndStickers,
-        Flags.GuildInvites,
-        Flags.GuildMessages,
-        Flags.GuildMessageReactions,
-        Flags.DirectMessages,
-        Flags.DirectMessageReactions,
-        Flags.MessageContent,
-        Flags.GuildScheduledEvents,
-        Flags.AutoModerationConfiguration,
-        Flags.AutoModerationExecution
+        IntentsBitField.Flags.Guilds,
+        IntentsBitField.Flags.GuildMembers,
+        IntentsBitField.Flags.GuildModeration,
+        IntentsBitField.Flags.GuildEmojisAndStickers,
+        IntentsBitField.Flags.GuildInvites,
+        IntentsBitField.Flags.GuildMessages,
+        IntentsBitField.Flags.GuildMessageReactions,
+        IntentsBitField.Flags.DirectMessages,
+        IntentsBitField.Flags.DirectMessageReactions,
+        IntentsBitField.Flags.MessageContent,
+        IntentsBitField.Flags.GuildScheduledEvents,
+        IntentsBitField.Flags.AutoModerationConfiguration,
+        IntentsBitField.Flags.AutoModerationExecution,
+        IntentsBitField.Flags.MessageContent
     ]
 });
 
 client.on("ready", (c) => {
-    client.user.setPresence({
-        status: "streaming"
-    });
+    console.log("ALIVE!");
 });
 
-client.login(TOKEN);
+client.on("messageCreate", (msg) => {
+    console.log(msg.content);
+})
+
+client.login(TOKEN)
