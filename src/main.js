@@ -1,6 +1,9 @@
+const commands = require("./commands.js")
+const msgHandler = require("./msgHandler.js")
+
 const fs = require("fs")
-const { TOKEN } = JSON.parse(fs.readFileSync("important.json"))
-const { Client, IntentsBitField} = require("discord.js")
+const data = JSON.parse(fs.readFileSync("important.json"))
+const { Client, IntentsBitField, SlashCommandBuilder} = require("discord.js")
 
 const client = new Client({
     intents: [
@@ -26,7 +29,11 @@ client.on("ready", (c) => {
 });
 
 client.on("messageCreate", (msg) => {
-    console.log(msg.content);
+    if(!msg.member.user.bot){
+        msg.reply({ embeds: [msgHandler.messageConstructer("aa")] }).catch((e) => {
+            console.log(e.msg)
+        })
+    }
 })
 
-client.login(TOKEN)
+client.login(data.TOKEN)
