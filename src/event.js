@@ -1,6 +1,7 @@
 const {EmbedBuilder} = require("discord.js")
 const data = require("./../important.json")
 
+// Välkommer nya kamrater
 const welcome = (member) => {
     let role = member.guild.roles.cache.find(role => role.name === "Overifierad");
     member.roles.add(role);
