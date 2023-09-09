@@ -1,5 +1,5 @@
-const sendMessage = () => {
-
+const init = (client) => {
+    
 }
 
-module.exports = {sendMessage}
+module.exports = {init};

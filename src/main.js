@@ -1,9 +1,8 @@
-const commands = require("./commands.js")
-const msgHandler = require("./msgHandler.js")
+const data = require("./../important.json");
+const { Client, IntentsBitField, ActivityType} = require("discord.js")
 
-const fs = require("fs")
-const data = JSON.parse(fs.readFileSync("important.json"))
-const { Client, IntentsBitField, SlashCommandBuilder} = require("discord.js")
+const EventHandler = require("./event.js");
+const CommandHandler = require("./commands.js");
 
 const client = new Client({
     intents: [
@@ -24,16 +23,21 @@ const client = new Client({
     ]
 });
 
-client.on("ready", (c) => {
-    console.log("ALIVE!");
-});
+client.on("ready", () => {
+    console.log("Running!");
 
-client.on("messageCreate", (msg) => {
-    if(!msg.member.user.bot){
-        msg.reply({ embeds: [msgHandler.messageConstructer("aa")] }).catch((e) => {
-            console.log(e.msg)
-        })
-    }
+    client.user.setPresence({ 
+        activities: [{ 
+            name: 'Klass Mot Klass! ✊',
+            type: ActivityType.Playing,
+            url: 'https://www.rku.nu' 
+        }], 
+        status: 'online' 
+    });
+})
+
+client.on("guildMemberAdd", (member) => {
+    EventHandler.welcome(member);
 })
 
 client.login(data.TOKEN)
