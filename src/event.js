@@ -13,12 +13,13 @@ const welcome = (member) => {
         const embedMsg = new EmbedBuilder()
             .setTitle("Välkommen Till RKU Örebros Discord Server!")
             .setDescription(
-                "Välkommen kamrat "+member.username+"! "+
+                "Välkommen kamrat "+member.user.username+"! "+
                 "Var vänligen och läs <#1148623875295416350> och sedan verifiera dig i "+
                 "<#1148624214379745280> genom att svara på frågorna i "+
                 "<#1148630219977138237>! Så kommer vi granska dig snart!"
             )
             .setColor(0xad0003)
+            .setImage("https://github.com/FMDcoder/RKUorebro/blob/main/images/RKU.png")
         
         member.guild.channels.cache.get("1148629886911664158").send({embeds: [embedMsg]})
     }, 1000);
