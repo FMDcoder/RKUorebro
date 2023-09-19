@@ -1,9 +1,6 @@
 const data = require("./../important.json");
 const { Client, IntentsBitField, ActivityType} = require("discord.js")
 
-const EventHandler = require("./event.js");
-const CommandHandler = require("./commands.js");
-
 const client = new Client({
     intents: [
         IntentsBitField.Flags.Guilds,
@@ -22,6 +19,11 @@ const client = new Client({
         IntentsBitField.Flags.MessageContent
     ]
 });
+module.exports = {client}
+
+const EventHandler = require("./event.js");
+const CatchUp = require("./catchUp.js");
+const CommandHandler = require("./commands.js");
 
 client.on("ready", () => {
     console.log("Running!");
@@ -34,6 +36,7 @@ client.on("ready", () => {
         }], 
         status: 'online' 
     });
+    CatchUp.joined(client);
 })
 
 client.on("guildMemberAdd", (member) => {
